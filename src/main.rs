@@ -2,6 +2,7 @@ use eframe::egui::Align;
 use eframe::egui::CentralPanel;
 use eframe::egui::Context;
 use eframe::egui::Layout;
+use eframe::egui::Rounding;
 use eframe::egui::ViewportBuilder;
 
 pub struct App {}
@@ -15,6 +16,16 @@ impl App {
 impl eframe::App for App {
     fn update(&mut self, ctx: &Context, _frame: &mut eframe::Frame) {
         catppuccin_egui::set_theme(ctx, catppuccin_egui::LATTE);
+
+        ctx.style_mut(|style| {
+            let rounding = Rounding::same(10.0);
+
+            style.visuals.widgets.noninteractive.rounding = rounding;
+            style.visuals.widgets.inactive.rounding = rounding;
+            style.visuals.widgets.hovered.rounding = rounding;
+            style.visuals.widgets.active.rounding = rounding;
+            style.visuals.widgets.open.rounding = rounding;
+        });
 
         CentralPanel::default().show(ctx, |ui| {
             ui.horizontal_centered(|ui| {
