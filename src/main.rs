@@ -1,23 +1,24 @@
-use eframe::egui::CentralPanel;
-use eframe::egui::Context;
-use eframe::egui::ViewportBuilder;
+use eframe::{
+    egui::{CentralPanel, Context, Frame, Rgba, ViewportBuilder, Visuals},
+    App, CreationContext, NativeOptions,
+};
 
-pub struct App {}
+pub struct MyApp {}
 
-impl App {
-    pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
+impl MyApp {
+    pub fn new(_cc: &CreationContext<'_>) -> Self {
         Self {}
     }
 }
 
-impl eframe::App for App {
-    fn clear_color(&self, _visuals: &eframe::egui::Visuals) -> [f32; 4] {
-        eframe::egui::Rgba::TRANSPARENT.to_array()
+impl App for MyApp {
+    fn clear_color(&self, _visuals: &Visuals) -> [f32; 4] {
+        Rgba::TRANSPARENT.to_array()
     }
 
     fn update(&mut self, ctx: &Context, _frame: &mut eframe::Frame) {
         CentralPanel::default()
-            .frame(eframe::egui::Frame::none())
+            .frame(Frame::none())
             .show(ctx, |ui| {
                 ui.label("The background should be transparent");
             });
@@ -25,7 +26,7 @@ impl eframe::App for App {
 }
 
 fn main() {
-    let native_options = eframe::NativeOptions {
+    let native_options = NativeOptions {
         viewport: ViewportBuilder::default()
             .with_transparent(true)
             .with_always_on_top(),
@@ -35,6 +36,6 @@ fn main() {
     let _ = eframe::run_native(
         "eframe template",
         native_options,
-        Box::new(|cc| Ok(Box::new(App::new(cc)))),
+        Box::new(|cc| Ok(Box::new(MyApp::new(cc)))),
     );
 }
