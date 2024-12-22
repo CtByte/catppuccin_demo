@@ -4,5 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-eframe = "0.29"
-catppuccin-egui = { version = "5.3.1", default-features = false, features = ["egui29"] }
+eframe = "0.30"
