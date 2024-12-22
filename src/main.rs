@@ -25,10 +25,12 @@ impl eframe::App for App {
 }
 
 fn main() {
-    let mut native_options = eframe::NativeOptions::default();
-    native_options.viewport = ViewportBuilder::default()
-        .with_transparent(true)
-        .with_always_on_top();
+    let native_options = eframe::NativeOptions {
+        viewport: ViewportBuilder::default()
+            .with_transparent(true)
+            .with_always_on_top(),
+        ..Default::default()
+    };
 
     let _ = eframe::run_native(
         "eframe template",
