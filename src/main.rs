@@ -14,6 +14,10 @@ impl App {
 }
 
 impl eframe::App for App {
+    fn clear_color(&self, _visuals: &eframe::egui::Visuals) -> [f32; 4] {
+        eframe::egui::Rgba::TRANSPARENT.to_array()
+    }
+
     fn update(&mut self, ctx: &Context, _frame: &mut eframe::Frame) {
         catppuccin_egui::set_theme(ctx, catppuccin_egui::LATTE);
 
@@ -27,7 +31,7 @@ impl eframe::App for App {
             style.visuals.widgets.open.rounding = rounding;
         });
 
-        CentralPanel::default().show(ctx, |ui| {
+        CentralPanel::default().frame(eframe::egui::Frame::none()).show(ctx, |ui| {
             ui.horizontal_centered(|ui| {
                 ui.with_layout(Layout::left_to_right(Align::Center), |ui| {
                     for item in [
@@ -52,7 +56,9 @@ impl eframe::App for App {
 
 fn main() {
     let mut native_options = eframe::NativeOptions::default();
-    native_options.viewport = ViewportBuilder::default().with_always_on_top();
+    native_options.viewport = ViewportBuilder::default()
+        .with_transparent(true)
+        .with_always_on_top();
 
     let _ = eframe::run_native(
         "eframe template",
